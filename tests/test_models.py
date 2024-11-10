@@ -113,7 +113,7 @@ class TestProductModel(unittest.TestCase):
         self.assertEqual(found_product.description, product.description)
         self.assertEqual(found_product.price, product.price)
 
-       def test_update_a_product(self):
+     def test_update_a_product(self):
         """It should Update a Product"""
         product = ProductFactory()
         product.id = None
@@ -131,7 +131,15 @@ class TestProductModel(unittest.TestCase):
         self.assertEqual(len(products), 1)
         self.assertEqual(products[0].id, original_id)
         self.assertEqual(products[0].description, "testing")
-        def test_list_all_products(self):
+     def test_delete_a_product(self):
+        """It should Delete a Product"""
+        product = ProductFactory()
+        product.create()
+        self.assertEqual(len(Product.all()), 1)
+        # delete the product and make sure it isn't in the database
+        product.delete()
+        self.assertEqual(len(Product.all()), 0)
+    def test_list_all_products(self):
         """It should List all Products in the database"""
         products = Product.all()
         self.assertEqual(products, [])
@@ -143,7 +151,7 @@ class TestProductModel(unittest.TestCase):
         products = Product.all()
         self.assertEqual(len(products), 5)
 
-         def test_find_by_name(self):
+    def test_find_by_name(self):
         """It should Find a Product by Name"""
         products = ProductFactory.create_batch(5)
         for product in products:
